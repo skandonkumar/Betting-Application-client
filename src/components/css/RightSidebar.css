@@ -1,0 +1,25 @@
+.btn-primary {
+    background-color: teal;
+    border-color: teal;
+    margin: 20px auto;
+}
+
+
+.button-div {
+    float:right;
+    padding: 80px 40px 80px 40px;
+}
+
+.wrapper {
+    overflow: auto;
+}
+
+.btn-primary:hover {
+    color: white;
+    background-color: teal;
+    border-color: teal;
+}
+
+.btn-primary:focus{
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.5);
+}

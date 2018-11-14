@@ -1,0 +1,9 @@
+.form-group {
+    margin: 0 auto;
+    width: 450px;
+}
+
+.btn-pad {
+    margin: 80px 40px 80px 40px;
+    float: left;
+}
