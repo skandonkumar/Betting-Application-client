@@ -3,8 +3,8 @@ import '../css/styles.css';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 
-import Header from "./Dashboard/Header";
-import LeftSidebar from "./Dashboard/LeftSidebar";
+import Header from "./../Dashboard/Header";
+import LeftSidebar from "./../Dashboard/LeftSidebar";
 
 
 

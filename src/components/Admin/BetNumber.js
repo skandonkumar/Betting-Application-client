@@ -2,8 +2,8 @@ import React,{Component} from 'react';
 import '../css/styles.css'
 import {Link} from 'react-router-dom';
 
-import Header from './Dashboard/Header';
-import LeftSidebar from "./Dashboard/LeftSidebar";
+import Header from './../Dashboard/Header';
+import LeftSidebar from "./../Dashboard/LeftSidebar";
 import axios from "axios";
 
 export default class BetNumber extends Component {

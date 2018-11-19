@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
-import '../css/Header.css';
+import '../css/styles.css';
+import {Link} from 'react-router-dom';
+
 
 export default class Header extends Component {
     constructor(props) {
@@ -8,25 +10,21 @@ export default class Header extends Component {
 
     render(){
         return(
-
-            <header>
-
-                <div className="jumbotron jumbotron-fluid">
-                    <div className="container">
-                        <h1 className="display-4">Welcome to Betting Application</h1>
+            <div className="jumbotron">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md">
+                            <h5>Welcome to Betting Application</h5>
+                        </div>
+                        <div className="col-sm-1">
+                            Admin
+                        </div>
+                        <div className="col-sm-2">
+                            <Link to="/login"><button>Logout</button></Link>
+                        </div>
                     </div>
-                    <h1 className="lead">{this.props.address}</h1>
                 </div>
-                {/*<nav className="navbar navbar-default navbar-fixed-top">*/}
-                {/*<div className="container">*/}
-                {/*<div className="navbar-header">*/}
-                {/*<div className="container">*/}
-                {/*Welcome to Betting Application*/}
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*</nav>*/}
-            </header>
+            </div>
         )
     }
 }
