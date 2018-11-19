@@ -1,41 +1,72 @@
 import React,{Component} from 'react';
-import './css/BetNumber.css'
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import Header from './Sidebars/Header';
-import LeftSidebar from "./Sidebars/LeftSidebar";
-import RightSidebar from "./Sidebars/RightSidebar";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
-import GiveRights from "./GiveRights";
+import './css/styles.css'
+import {Link} from 'react-router-dom';
+
+import Header from './Dashboard/Header';
+import LeftSidebar from "./Dashboard/LeftSidebar";
+import axios from "axios";
 
 export default class BetNumber extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            users : []
+        }
     }
+
+    getAllUsers(){
+        axios
+            .get("http://localhost:5000/api/allUsers")
+            .then(result => {this.getUserAddresses(result)})
+    }
+
+    getUserAddresses(users){
+        var add = [];
+        users.data.map((address)=>{
+            add.push(address.address)
+        })
+        this.setState({
+            users : add,
+            address:""
+        })
+    }
+
+    componentDidMount(){
+        this.getAllUsers();
+        // this.giveRights();
+    }
+
     render() {
+
+        let ch;
+        if (this.props.location.state && this.props.location.state.ch){
+            ch = this.props.location.state.ch;
+        }
+
         return (
-            <Router>
             <div>
-                <Header/>
-                <LeftSidebar ch={this.props.value}/>
-            <nav className="container">
-                <div className="btn-pad">
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="exampleFormControlInput1">Set Bet Number</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1"
-                                   placeholder="name@example.com"/>
-                        </div>
-                    </form>
+                <div>
+                    <Header address={ch}/>
                 </div>
-                <div className="btn-pad">
-                    <Link to="/api/GiveRights"><button  className="btn btn-primary btn-lg">Next</button></Link>
+                <div className="row justify-content-md-start">
+                    <div className="sidebar">
+                        <LeftSidebar ch={ch} users = {this.state.users}/>
+                    </div>
+
+                    <div className="col-4">
+                        <form className="form-group">
+                            <div className="form-group">
+                                <label htmlFor="betnumber">Give Rights to Bet</label>
+                                <input type="text" className="form-control" id="betnumber" aria-describedby="emailHelp"/>
+                            </div>
+                            <div>
+                                <Link to="/giveright"><button>Next</button></Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </nav>
-                <RightSidebar/>
-                <Route exact path="/api/GiveRights" render={()=><GiveRights/>}/>
             </div>
 
-        </Router>
         )
     }
 }

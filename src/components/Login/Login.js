@@ -1,12 +1,9 @@
 import React from "react";
-
-//import TransitionGroup from "react-transition-group";
 import './login.scss';
 import FadeTransition from "./fadeTransition";
 import axios from 'axios';
-import * as Web3 from "web3"
-import {Switch , Route, BrowserRouter, Redirect} from 'react-router-dom';
-import GiveRights from "../GiveRights";
+import {Redirect} from 'react-router-dom';
+
 
 export default class MainLoginPage extends React.Component {
     constructor(props) {
@@ -32,6 +29,7 @@ export default class MainLoginPage extends React.Component {
 
     render() {
         const chairperson_address = this.props.ch;
+        const user_name = this.props.username;
         return (
             <div className="root-container">
                 <div className="box-controller">
@@ -92,12 +90,6 @@ class ChairpersonBox extends React.Component{
             address : "",
             success : false
         }
-        // const account = require('../../config/account');
-        // const pk = require('../../config/keys');
-        // const ABI = require('../../config/abi');
-        // const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-        // const MyContract = web3.eth.contract(ABI.ABI);
-        // const ContractInstance = MyContract.at('0x38b1c88864b59842be733a9f73cf43b9f14a7bf5');
     }
 
     onLoginAddressChange(e) {
@@ -121,6 +113,7 @@ class ChairpersonBox extends React.Component{
     render(){
         const contract = this.props.contract;
         const chairperson = this.state.ch;
+
         if (this.state.success){
             this.props.setAdminLogin()
             return (<Redirect to={{pathname:"/giveRight", state:{ch:chairperson}}}/>)
@@ -142,13 +135,13 @@ class ChairpersonBox extends React.Component{
                                 .onLoginAddressChange
                                 .bind(this)}/>
                     </div>
-                   <button
+                    <button
                         type="button"
                         className="login-btn"
                         onClick={this
                             .LoginChairperson
                             .bind(this)}>Chairperson Login
-                   </button>
+                    </button>
                     <small className="danger-error">{this.state.error?this.state.error:""}</small>
                 </div>
             </div>
@@ -198,9 +191,16 @@ class LoginBox extends React.Component {
                     success : true
                 })
             })
+        console.log(this.state.username);
     }
 
     render() {
+        const username = this.state.username;
+
+        if (this.state.success){
+            return (<Redirect to={{pathname:"/bet", state:{username:username}}}/>)
+        }
+
         return (
             <div className="inner-container">
                 <div className="header">
@@ -234,7 +234,7 @@ class LoginBox extends React.Component {
                         />
                     </div>
 
-                   <button
+                    <button
                         type="button"
                         className="login-btn"
                         onClick={this
@@ -295,9 +295,11 @@ class RegisterBox extends React.Component {
     }
 
     render() {
+
         if (this.state.success === true){
             alert("Successfully registered!");
         }
+
         return (
             <div className="inner-container">
                 <div className="header">

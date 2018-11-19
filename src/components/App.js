@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import * as Web3 from "web3";
-import MainLoginPage from "./Login/Login";
 import {Switch , Route, BrowserRouter, Redirect} from 'react-router-dom';
+import * as Web3 from "web3";
+
 import GiveRights from "./GiveRights";
+import Bet from "./Bet";
+import Statistic from "./Statistic";
+import Balance from "./Balance";
 import BetNumber from "./BetNumber";
-import Public from "./test";
+import MainLoginPage from "./Login/Login";
 
 export default class App extends Component{
     constructor(props){
@@ -15,7 +17,7 @@ export default class App extends Component{
         const ABI = require('../config/abi');
         const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
         const MyContract = web3.eth.contract(ABI.ABI);
-        const ContractInstance = MyContract.at('0x38b1c88864b59842be733a9f73cf43b9f14a7bf5');
+        const ContractInstance = MyContract.at('0xe38d92282dc9edcdb47c2b1f68386e355e769f9d');
 
         this.state = {
             ContractInstance : ContractInstance,
@@ -27,6 +29,7 @@ export default class App extends Component{
 
     getChairPerson()
     {
+        console.log(this.state.ContractInstance);
         let Ch;
         this.state.ContractInstance.chairperson.call((error, response) => {
             if (!error) {
@@ -55,17 +58,21 @@ export default class App extends Component{
 
 
     render(){
-        let ch= this.state.Chairperson
+        let ch = this.state.Chairperson;
         return(
             <BrowserRouter>
-                <div style={{height: '100vh'}}>
+                <div>
+                    <Switch>
                         <Route path="/" exact render={()=>(<Redirect to="/login"/>)}/>
                         <Route path="/login" exact render={()=>(<MainLoginPage ch={ch} contract={this.state.ContractInstance} setAdminLogin={this.AdminLogin}/>)}/>
-                        {/*<Route path="/test" exact component={Public}/>*/}
                         <Route path="/giveRight" exact component={GiveRights}/>
+                        <Route path="/bet" exact component={Bet}/>
+                        <Route path="/betnumber" exact component={BetNumber}/>
+                        <Route path="/balance" exact component={Balance}/>
+                        <Route path="/statistics" exact component={Statistic}/>
+                    </Switch>
                 </div>
             </BrowserRouter>
         );
     }
 }
-
