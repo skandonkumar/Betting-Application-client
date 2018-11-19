@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 
-import './css/styles.css';
+import '../css/styles.css';
 import Header from "./Dashboard/Header";
 import LeftSidebar from "./Dashboard/LeftSidebar";
 

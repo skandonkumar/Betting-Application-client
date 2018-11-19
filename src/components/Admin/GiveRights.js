@@ -1,13 +1,14 @@
 import React,{Component} from 'react';
-import {Link} from "react-router-dom";
-import axios from "axios";
+import '../css/styles.css';
+import {Link, Redirect} from 'react-router-dom';
+import axios from 'axios';
 
-import './css/styles.css';
 import Header from "./Dashboard/Header";
 import LeftSidebar from "./Dashboard/LeftSidebar";
 
 
-export default class BetNumber extends Component {
+
+export default class GiveRights extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -32,25 +33,29 @@ export default class BetNumber extends Component {
         })
     }
 
-    componentDidMount(){
-        this.getAllUsers();
+    setAddress(e){
+        this.setState({
+            address : e.target.value
+        })
+        this.giveRights().bind(this)
     }
 
+    componentDidMount(){
+        this.getAllUsers();
+        // this.giveRights();
+    }
     render() {
-
-
         let ch;
         if (this.props.location.state && this.props.location.state.ch){
             ch = this.props.location.state.ch;
         }
-
         return (
-
             <div>
                 <div>
-                    <Header/>
+                    <Header address={ch}/>
                 </div>
                 <div className="row justify-content-md-start">
+
                     <div className="sidebar">
                         <LeftSidebar ch={ch} users = {this.state.users}/>
                     </div>
@@ -58,25 +63,22 @@ export default class BetNumber extends Component {
                     <div className="col-4">
                         <form className="form-group">
                             <div className="form-group">
-                                <label htmlFor="balance">Balance</label>
-                                <input type="text" className="form-control" id="balance" aria-describedby="emailHelp"/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="betNumber">Bet Number</label>
-                                <input type="text" className="form-control" id="betNumber" aria-describedby="emailHelp"/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="amountBet">Amount Bet</label>
-                                <input type="text" className="form-control" id="amountBet" aria-describedby="emailHelp"/>
+                                <label htmlFor="giveRights">Give Rights to Bet</label>
+                                <input type="text" className="form-control" id="giveRights" aria-describedby="emailHelp"
+                                       placeholder="0x..." onChange={this.setAddress.bind(this)}/>
                             </div>
                             <div>
-                                <Link to="/bet"><button>Bet Again</button></Link>
+                                <Redirect to="/giveright"/><button>Add</button>
                             </div>
                             <div>
-                                <Link to="/statistics"><button>View Result</button></Link>
+                                <Link to="/betnumber"><button>Next</button></Link>
+                            </div>
+                            <div>
+                                <button>Reset Bet</button>
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
         )

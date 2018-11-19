@@ -2,11 +2,11 @@ import React,{Component} from 'react';
 import {Switch , Route, BrowserRouter, Redirect} from 'react-router-dom';
 import * as Web3 from "web3";
 
-import GiveRights from "./GiveRights";
-import Bet from "./Bet";
-import Statistic from "./Statistic";
-import Balance from "./Balance";
-import BetNumber from "./BetNumber";
+import GiveRights from "./Admin/GiveRights";
+import Bet from "./User/Bet";
+import Statistic from "./User/Statistic";
+import Balance from "./User/Balance";
+import BetNumber from "./Admin/BetNumber";
 import MainLoginPage from "./Login/Login";
 
 export default class App extends Component{
